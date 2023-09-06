@@ -1,4 +1,4 @@
-namespace media_tracker_api_gateway;
+namespace MediaTrackerApiGateway;
 
 public class WeatherForecast
 {

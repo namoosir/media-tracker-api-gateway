@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace media_tracker_api_gateway.Controllers;
+namespace MediaTrackerApiGateway.Controllers;
 
 [ApiController]
 [Route("[controller]")]

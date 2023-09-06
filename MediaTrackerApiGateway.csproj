@@ -4,7 +4,7 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <RootNamespace>media_tracker_api_gateway</RootNamespace>
+    <RootNamespace>MediaTrackerApiGateway</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
