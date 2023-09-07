@@ -1,3 +1,4 @@
+using MediaTrackerApiGateway.Data;
 using StackExchange.Redis;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,8 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(
             builder.Configuration.GetConnectionString("RedisConnectionString")
         )
 );
+
+builder.Services.AddScoped<IUserInformationRepository, UserInformationRepository>();
 
 builder.Services.AddControllers();
 
