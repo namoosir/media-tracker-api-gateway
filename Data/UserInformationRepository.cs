@@ -22,19 +22,22 @@ public class UserInformationRepository : IUserInformationRepository
 
         var db = _redis.GetDatabase();
         var serialUserInformation = JsonSerializer.Serialize(userInformation);
-        return await db.StringSetAsync(userInformation.Token, serialUserInformation);
+        return await db.StringSetAsync(
+            $"UserInformation:{userInformation.Token}",
+            serialUserInformation
+        );
     }
 
     public async Task<bool> DeleteUserInformation(string token)
     {
         var db = _redis.GetDatabase();
-        return await db.KeyDeleteAsync(token);
+        return await db.KeyDeleteAsync($"UserInformation:{token}");
     }
 
     public async Task<UserInformation?> GetUserIdByToken(string token)
     {
         var db = _redis.GetDatabase();
-        var userInformation = await db.StringGetAsync(token);
+        var userInformation = await db.StringGetAsync($"UserInformation:{token}");
 
         if (!string.IsNullOrEmpty(userInformation))
         {
