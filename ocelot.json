@@ -1,0 +1,50 @@
+{
+    "Routes": [
+        {
+            "UpstreamPathTemplate": "/PlatformConnection/mine",
+            "UpstreamHttpMethod": ["Get"],
+
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5238
+                }
+            ],
+            "DownstreamPathTemplate": "/PlatformConnection",
+            "DelegatingHandlers": [
+                "GetPlatformConnectionById"
+            ]
+        },
+        {
+            "UpstreamPathTemplate": "/Auth/sign/google",
+            "UpstreamHttpMethod": ["Post"],
+
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5238
+                }
+            ],
+            "DownstreamPathTemplate": "/Auth/sign/google"
+        },
+        {
+            "UpstreamPathTemplate": "/PlatformConnection/action/request/youtube",
+            "UpstreamHttpMethod": ["Post"],
+
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5238
+                }
+            ],
+            "DownstreamPathTemplate": "/PlatformConnection/action/request/youtube"
+        }
+    ],
+    "GlobalConfiguration": {
+        "BaseUrl": "http://localhost:5055"
+    }
+
+}
