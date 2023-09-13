@@ -1,6 +1,6 @@
 using MediaTrackerApiGateway.Controllers;
 using MediaTrackerApiGateway.Data;
-using MediaTrackerApiGateway.DelegatingHandlers;
+using MediaTrackerApiGateway.Middleware.DelegatingHandlers;
 using MediaTrackerApiGateway.Middleware;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
