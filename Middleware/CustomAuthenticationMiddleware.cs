@@ -1,19 +1,21 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using MediaTrackerApiGateway.Controllers;
 using Ocelot.Middleware;
 using Microsoft.AspNetCore.Http.Extensions;
+using MediaTrackerApiGateway.Models;
+using System.Security.Claims;
+using MediaTrackerApiGateway.Services.SessionTokenService;
 
 namespace MediaTrackerApiGateway.Middleware;
 
 public class CustomAuthenticationHandler
 {
-    private readonly UserInformationController _userInformationController;
+    private readonly ISessionTokenService _sessionTokenService;
 
-    public CustomAuthenticationHandler(UserInformationController userInformationController)
+    public CustomAuthenticationHandler(ISessionTokenService sessionTokenService)
     {
-        _userInformationController = userInformationController;
+        _sessionTokenService = sessionTokenService;
     }
 
     public async Task HandleAsync(HttpContext context, Func<Task> next)
@@ -32,9 +34,7 @@ public class CustomAuthenticationHandler
             context.Items.SetError(new UnauthenticatedError("No auth token in header"));
         }
 
-        var userInformation = await _userInformationController.GetUserIdByToken(token);
-
-        if (userInformation.Success)
+        if (_sessionTokenService.ValidateToken(token, out ClaimsPrincipal _))
         {
             await next.Invoke();
         }

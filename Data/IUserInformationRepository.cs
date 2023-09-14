@@ -1,10 +1,10 @@
-using MediaTrackerApiGateway.Models;
+// using MediaTrackerApiGateway.Models;
 
-namespace MediaTrackerApiGateway.Data;
+// namespace MediaTrackerApiGateway.Data;
 
-public interface IUserInformationRepository
-{
-    Task<bool> CreateUserInformation(UserInformation userInformation);
-    Task<UserInformation?> GetUserIdByToken(string token);
-    Task<bool> DeleteUserInformation(string token);
-}
+// public interface IUserInformationRepository
+// {
+//     Task<bool> CreateUserInformation(UserInformation userInformation);
+//     Task<UserInformation?> GetUserIdByToken(string token);
+//     Task<bool> DeleteUserInformation(string token);
+// }

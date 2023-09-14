@@ -1,10 +1,11 @@
-using MediaTrackerApiGateway.Controllers;
-using MediaTrackerApiGateway.Data;
+// using MediaTrackerApiGateway.Controllers;
+// using MediaTrackerApiGateway.Data;
 using MediaTrackerApiGateway.Middleware.DelegatingHandlers;
 using MediaTrackerApiGateway.Middleware;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 using StackExchange.Redis;
+using MediaTrackerApiGateway.Services.SessionTokenService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,8 +22,9 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(
         )
 );
 
-builder.Services.AddSingleton<IUserInformationRepository, UserInformationRepository>();
-builder.Services.AddSingleton<UserInformationController>();
+// builder.Services.AddSingleton<IUserInformationRepository, UserInformationRepository>();
+// builder.Services.AddSingleton<UserInformationController>();
+builder.Services.AddSingleton<ISessionTokenService, SessionTokenService>();
 builder.Services.AddScoped<CustomAuthenticationHandler>();
 
 builder.Configuration

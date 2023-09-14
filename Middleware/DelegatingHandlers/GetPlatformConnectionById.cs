@@ -1,16 +1,16 @@
-using MediaTrackerApiGateway.Controllers;
-using MediaTrackerApiGateway.Data;
+using System.Security.Claims;
+using MediaTrackerApiGateway.Services.SessionTokenService;
 
 namespace MediaTrackerApiGateway.Middleware.DelegatingHandlers;
 
 public class GetPlatformConnectionById : DelegatingHandler
 {
-    private readonly UserInformationController _userInformationController;
+    private readonly ISessionTokenService _sessionTokenService;
 
-    public GetPlatformConnectionById(UserInformationController userInformationController)
+    public GetPlatformConnectionById(ISessionTokenService sessionTokenService)
         : base()
     {
-        _userInformationController = userInformationController;
+        _sessionTokenService = sessionTokenService;
     }
 
     protected override async Task<HttpResponseMessage> SendAsync(
@@ -20,11 +20,14 @@ public class GetPlatformConnectionById : DelegatingHandler
     {
         string token = request.Headers
             .GetValues("Authorization")
-            .FirstOrDefault()
-            !.Replace("Bearer ", "");
-        int userId = await RetrieveUserIdFromDb(token);
+            .FirstOrDefault()!
+            .Replace("Bearer ", "");
 
-        if (userId != -1)
+        _sessionTokenService.ValidateToken(token, out ClaimsPrincipal claimsPrincipal);
+
+        int? userId = _sessionTokenService.GetUserIdFromClaimsPrincipal(claimsPrincipal);
+
+        if (userId is not null)
         {
             request.RequestUri = new Uri(request.RequestUri!.ToString() + $"/{userId}");
             return await base.SendAsync(request, cancellationToken);
@@ -33,17 +36,5 @@ public class GetPlatformConnectionById : DelegatingHandler
         {
             return new HttpResponseMessage(System.Net.HttpStatusCode.InternalServerError);
         }
-    }
-
-    private async Task<int> RetrieveUserIdFromDb(string token)
-    {
-        var userInformation = await _userInformationController.GetUserIdByToken(token);
-
-        if (!userInformation.Success || userInformation.Data is null)
-        {
-            return -1;
-        }
-
-        return userInformation.Data.UserId;
     }
 }
