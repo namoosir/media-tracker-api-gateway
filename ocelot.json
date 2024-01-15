@@ -27,7 +27,7 @@
                     "Port": 5238
                 }
             ],
-            "DownstreamPathTemplate": "/whoami/",
+            "DownstreamPathTemplate": "/Auth/whoami/",
             "DelegatingHandlers": [
                 "ApendUserIdFromToken"
             ]

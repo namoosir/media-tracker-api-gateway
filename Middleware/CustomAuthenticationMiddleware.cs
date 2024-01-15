@@ -21,7 +21,7 @@ public class CustomAuthenticationHandler
     public async Task HandleAsync(HttpContext context, Func<Task> next)
     {
         string path = context.Request.Path;
-        if (path == "/Auth/sign/google")
+        if (path.ToLower() == "/auth/sign/google")
         {
             Console.WriteLine("\n\n\n\nKJDSBFKJCDS\n\n\n\n");
             //no need to check for anything
