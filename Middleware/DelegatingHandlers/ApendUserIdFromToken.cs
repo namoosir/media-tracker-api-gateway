@@ -3,11 +3,11 @@ using MediaTrackerApiGateway.Services.SessionTokenService;
 
 namespace MediaTrackerApiGateway.Middleware.DelegatingHandlers;
 
-public class GetPlatformConnectionById : DelegatingHandler
+public class ApendUserIdFromToken : DelegatingHandler
 {
     private readonly ISessionTokenService _sessionTokenService;
 
-    public GetPlatformConnectionById(ISessionTokenService sessionTokenService)
+    public ApendUserIdFromToken(ISessionTokenService sessionTokenService)
         : base()
     {
         _sessionTokenService = sessionTokenService;
@@ -29,7 +29,7 @@ public class GetPlatformConnectionById : DelegatingHandler
 
         if (userId is not null)
         {
-            request.RequestUri = new Uri(request.RequestUri!.ToString() + $"/{userId}");
+            request.RequestUri = new Uri(request.RequestUri!.ToString() + $"{userId}");
             return await base.SendAsync(request, cancellationToken);
         }
         else

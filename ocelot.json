@@ -11,14 +11,30 @@
                     "Port": 5238
                 }
             ],
-            "DownstreamPathTemplate": "/PlatformConnection",
+            "DownstreamPathTemplate": "/PlatformConnection/",
             "DelegatingHandlers": [
-                "GetPlatformConnectionById"
+                "ApendUserIdFromToken"
+            ]
+        },
+        {
+            "UpstreamPathTemplate": "/Auth/whoami",
+            "UpstreamHttpMethod": ["Get"],
+
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5238
+                }
+            ],
+            "DownstreamPathTemplate": "/whoami/",
+            "DelegatingHandlers": [
+                "ApendUserIdFromToken"
             ]
         },
         {
             "UpstreamPathTemplate": "/Auth/sign/google",
-            "UpstreamHttpMethod": ["Post"],
+            "UpstreamHttpMethod": ["Get"],
 
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [

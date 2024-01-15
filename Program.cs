@@ -32,7 +32,7 @@ builder.Configuration
     .AddJsonFile("ocelot.json", optional: false, reloadOnChange: true)
     .AddEnvironmentVariables();
 
-builder.Services.AddOcelot(builder.Configuration).AddDelegatingHandler<GetPlatformConnectionById>();
+builder.Services.AddOcelot(builder.Configuration).AddDelegatingHandler<ApendUserIdFromToken>();
 
 // builder.Services.AddControllers();
 

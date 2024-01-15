@@ -23,8 +23,10 @@ public class CustomAuthenticationHandler
         string path = context.Request.Path;
         if (path == "/Auth/sign/google")
         {
+            Console.WriteLine("\n\n\n\nKJDSBFKJCDS\n\n\n\n");
             //no need to check for anything
             await next.Invoke();
+            return;
         }
 
         string token = context.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
@@ -37,11 +39,15 @@ public class CustomAuthenticationHandler
         if (_sessionTokenService.ValidateToken(token, out ClaimsPrincipal _))
         {
             await next.Invoke();
+            return;
         }
         else
         {
             context.Items.SetError(new UnauthenticatedError("Invalid token"));
             return;
         }
+
+
+
     }
 }
