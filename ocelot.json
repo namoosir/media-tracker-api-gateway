@@ -47,7 +47,7 @@
         },
         {
             "UpstreamPathTemplate": "/PlatformConnection/action/request/youtube",
-            "UpstreamHttpMethod": ["Post"],
+            "UpstreamHttpMethod": ["Get"],
 
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
